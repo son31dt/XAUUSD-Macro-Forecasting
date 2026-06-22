@@ -156,9 +156,11 @@ with st.sidebar:
     )
 
     if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
-        start_dt, end_dt = pd.Timestamp(date_range[0]), pd.Timestamp(date_range[1])
+        start_dt = pd.Timestamp(date_range[0])
+        end_dt = pd.Timestamp(date_range[1]).replace(hour=23, minute=59, second=59)
     else:
-        start_dt, end_dt = pd.Timestamp(min_date), pd.Timestamp(max_date)
+        start_dt = pd.Timestamp(min_date)
+        end_dt = pd.Timestamp(max_date).replace(hour=23, minute=59, second=59)
 
     st.divider()
 
