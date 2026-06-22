@@ -1,5 +1,9 @@
 # XAU/USD Intraday Forecasting: Macroeconomic Features vs Foundation Models
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://xauusd-macro-forecasting.streamlit.app)
+
+> **Live Interactive Dashboard:** Try the web application directly via the link above to see how macroeconomic injections impact the XGBoost model during news releases.
+
 ## Overview
 This repository contains a quantitative data science research project comparing the performance of **XGBoost** (with and without macroeconomic feature injection) against **TimesFM** (Google's Zero-Shot Foundation Model) for intraday gold price prediction (XAU/USD, 15-minute intervals).
 
