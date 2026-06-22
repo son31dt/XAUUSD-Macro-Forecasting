@@ -1,0 +1,22 @@
+# Environments
+venv/
+env/
+.venv/
+.env
+
+# IDEs and Configurations
+.vscode/
+.gemini/
+.antigravityignore
+.idea/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Raw Data and Models (Keep processed data for deployment)
+data/raw/
+*.pkl
+*.model
+*.h5
