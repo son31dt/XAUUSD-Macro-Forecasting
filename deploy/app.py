@@ -32,25 +32,19 @@ st.set_page_config(
 # Dark mode via custom CSS
 st.markdown("""
 <style>
-    /* Main background */
-    .stApp { background-color: #0e1117; }
-
-    /* Sidebar */
-    [data-testid="stSidebar"] { background-color: #161b22; }
-
     /* Sidebar title */
     .sidebar-title {
         font-size: 1.4rem;
         font-weight: 700;
-        color: #f0c040;
+        color: var(--text-color);
         margin-bottom: 0.5rem;
         letter-spacing: 0.5px;
     }
 
     /* Metric cards */
     [data-testid="metric-container"] {
-        background: #1c2333;
-        border: 1px solid #30363d;
+        background-color: var(--secondary-background-color);
+        border: 1px solid rgba(128, 128, 128, 0.2);
         border-radius: 10px;
         padding: 14px;
     }
@@ -58,13 +52,13 @@ st.markdown("""
     /* Tab styling */
     .stTabs [data-baseweb="tab-list"] {
         gap: 6px;
-        background-color: #161b22;
+        background-color: var(--secondary-background-color);
         border-radius: 8px;
         padding: 4px;
     }
     .stTabs [data-baseweb="tab"] {
         border-radius: 6px;
-        color: #8b949e;
+        color: var(--text-color);
         padding: 8px 20px;
         font-weight: 600;
     }
@@ -74,11 +68,11 @@ st.markdown("""
     }
 
     /* Caption text */
-    .caption-text { color: #8b949e; font-size: 0.85rem; }
+    .caption-text { color: var(--text-color); font-size: 0.85rem; opacity: 0.8; }
 
     /* Event badge */
     .event-badge {
-        background: #2d1b00;
+        background: rgba(240, 192, 64, 0.15);
         border: 1px solid #f0c040;
         border-radius: 4px;
         color: #f0c040;
@@ -261,17 +255,19 @@ with tab1:
             )
 
         fig.update_layout(
-            template="plotly_dark",
-            paper_bgcolor="#0e1117",
-            plot_bgcolor="#161b22",
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-            xaxis=dict(showgrid=True, gridcolor="#30363d", title="Datetime (UTC)"),
-            yaxis=dict(showgrid=True, gridcolor="#30363d", title="XAU/USD Price"),
+            xaxis=dict(showgrid=True, gridcolor="rgba(128, 128, 128, 0.2)", title="Datetime (UTC)"),
+            yaxis=dict(showgrid=True, gridcolor="rgba(128, 128, 128, 0.2)", title="XAU/USD Price"),
             height=500,
             margin=dict(l=10, r=10, t=20, b=10),
             hovermode="x unified",
+            modebar=dict(
+                bgcolor="rgba(0,0,0,0)",
+                color="rgba(128,128,128,0.7)",
+                activecolor="rgba(128,128,128,1)"
+            )
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, on_select="ignore", selection_mode="points", width="stretch")
         st.caption(f"🟡 Yellow zone = macroeconomic news release hour ({n_events} points). Dashed line = model predictions.")
 
 # ---------------------------------------------------------------------------
@@ -315,7 +311,7 @@ with tab2:
             with col_label:
                 st.markdown(
                     f"<div style='padding-top:32px;color:{color};font-weight:700;font-size:0.9rem;'>"
-                    f"Global<br><span style='color:#8b949e;'>({n_rows:,} candles)</span></div>",
+                    f"Global<br><span style='color:var(--text-color); opacity:0.6;'>({n_rows:,} candles)</span></div>",
                     unsafe_allow_html=True
                 )
             col1.metric("MAE",  f"{mae_g:.4f} USD"  if mae_g  is not None else "—", help="Mean Absolute Error (absolute price)")
@@ -330,7 +326,7 @@ with tab2:
                 with col_label2:
                     st.markdown(
                         f"<div style='padding-top:32px;color:{color};font-weight:700;font-size:0.9rem;'>"
-                        f"News Event 📰<br><span style='color:#8b949e;'>({len(event_data)} candles)</span></div>",
+                        f"News Event 📰<br><span style='color:var(--text-color); opacity:0.6;'>({len(event_data)} candles)</span></div>",
                         unsafe_allow_html=True
                     )
                 col1e.metric("MAE",  f"{mae_e:.4f} USD"  if mae_e  is not None else "—")
@@ -397,7 +393,7 @@ with tab3:
 # =============================================================================
 st.divider()
 st.markdown(
-    "<div style='text-align:center; color:#8b949e; font-size:0.8rem;'>"
+    "<div style='text-align:center; color:var(--text-color); opacity:0.6; font-size:0.8rem;'>"
     "📘 Thesis Dashboard — Intraday XAU/USD Price Prediction | XGBoost vs TimesFM | 2025 Test Set"
     "</div>",
     unsafe_allow_html=True
